@@ -69,6 +69,7 @@
                     <th scope="col">Описание</th>
                     <th scope="col">Адрес</th>
                     <th scope="col">Пользователь, сообщивший о нарушении</th>
+                    <th scope="col">Тип происшествия</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,6 +81,7 @@
                     <td th:text="${accident.text}"/>
                     <td th:text="${accident.address}"/>
                     <td th:text="${user.name}"/>
+                    <td th:text="${accident.type.name}"/>
                 </tr>
                 </tbody>
             </table>
