@@ -61,7 +61,7 @@
                 Редактировать нарушение
             </div>
             <div class="card-body">
-                <form th:action="@{/accidents/editAccident}" method="POST" th:object="${accident}"
+                <form th:action="@{/accidents/update}" method="POST" th:object="${accident}"
                       enctype="multipart/form-data">
                     <input type="hidden" name="id" th:field="*{accident.id}">
                     <div class="row mb-3">
@@ -70,19 +70,19 @@
                                 <label for="name" class="form-label"><b>Редактировать название
                                     нарушения</b></label>
                                 <textarea class="form-control" id="name" name="name" rows="1"
-                                          th:text="${accident.name}"></textarea>
+                                          th:field="*{accident.name}"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="text" class="form-label"><b>Редактировать описание
                                     нарушения</b></label>
                                 <textarea class="form-control" id="text" name="text" rows="10"
-                                          th:text="${accident.text}"></textarea>
+                                          th:field="*{accident.text}"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label"><b>Редактировать адрес
                                     нарушения</b></label>
                                 <textarea class="form-control" id="address" name="address" rows="10"
-                                          th:text="${accident.address}"></textarea>
+                                          th:field="*{accident.address}"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Обновить</button>
                         </div>
