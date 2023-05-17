@@ -25,12 +25,11 @@ public class AccidentMem {
                 accidentTypeMem.findById(1).get()));
         save(new Accident(0, "Сбили пешехода", "ДТП с участием автомобиля и пешехода, "
                 + "водитель сбил пешехода в 15 метрах от пешеходного перехода",
-                "ул.Ленина, напротив д.11"
-                , accidentTypeMem.findById(2).get()));
+                "ул.Ленина, напротив д.11", accidentTypeMem.findById(2).get()));
         save(new Accident(0, "Сбили велосипедиста", "ДТП с участием автомобиля и "
                 + "велосипедиста, велосипедист не спешился на пешеходном переходе, травмировал "
-                + "колено и локоть, требуется вызов скорой помощи", "ул.Ватутина, д.26"
-                , accidentTypeMem.findById(3).get()));
+                + "колено и локоть, требуется вызов скорой помощи", "ул.Ватутина, д.26",
+                accidentTypeMem.findById(3).get()));
     }
 
     public Accident save(Accident accident) {
