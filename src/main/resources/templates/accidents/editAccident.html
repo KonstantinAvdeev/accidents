@@ -26,7 +26,6 @@
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -56,33 +55,40 @@
             </form>
         </div>
     </nav>
-    <div class="container mt-2">
-        <ul>
-            <li><a th:href="@{/accidents/createAccident}">Сообщить о нарушении</a></li>
-        </ul>
-        <div class="row">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Название нарушения</th>
-                    <th scope="col">Описание</th>
-                    <th scope="col">Адрес</th>
-                    <th scope="col">Пользователь, сообщивший о нарушении</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="accident: ${accidents}">
-                    <td th:text="${accident.id}"/>
-                    <td><a th:text="${accident.name}"
-                           th:href="@{accidents/{accidentId}(accidentId=${accident.id})}"></a>
-                    </td>
-                    <td th:text="${accident.text}"/>
-                    <td th:text="${accident.address}"/>
-                    <td th:text="${user.name}"/>
-                </tr>
-                </tbody>
-            </table>
+    <div class="row pt-3">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Редактировать нарушение
+            </div>
+            <div class="card-body">
+                <form th:action="@{/accidents/editAccident}" method="POST" th:object="${accident}"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:field="*{accident.id}">
+                    <div class="row mb-3">
+                        <div class="col-9">
+                            <div class="mb-3">
+                                <label for="name" class="form-label"><b>Редактировать название
+                                    нарушения</b></label>
+                                <textarea class="form-control" id="name" name="name" rows="1"
+                                          th:text="${accident.name}"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="text" class="form-label"><b>Редактировать описание
+                                    нарушения</b></label>
+                                <textarea class="form-control" id="text" name="text" rows="10"
+                                          th:text="${accident.text}"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label"><b>Редактировать адрес
+                                    нарушения</b></label>
+                                <textarea class="form-control" id="address" name="address" rows="10"
+                                          th:text="${accident.address}"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Обновить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
