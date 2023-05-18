@@ -6,10 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.service.AccidentService;
 import ru.job4j.accidents.service.AccidentTypeService;
+import ru.job4j.accidents.service.RuleService;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @AllArgsConstructor
@@ -17,16 +20,18 @@ import java.util.Optional;
 public class AccidentController {
     private final AccidentService accidentService;
     private final AccidentTypeService accidentTypeService;
+    private final RuleService ruleService;
 
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
+        model.addAttribute("rules", ruleService.getAll());
         model.addAttribute("types", accidentTypeService.getAll());
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
-        accidentService.save(accident, accident.getType().getId());
+        accidentService.save(accident, accident.getType().getId(), accident.getRules());
         return "redirect:/index";
     }
 
@@ -38,6 +43,7 @@ public class AccidentController {
                     + "идентификатором не найдено");
             return "errors/404";
         }
+        model.addAttribute("rules", ruleService.getAll());
         model.addAttribute("types", accidentTypeService.getAll());
         model.addAttribute("accident", optionalAccident.get());
         return "editAccident";
@@ -45,9 +51,12 @@ public class AccidentController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Accident accident,
-                         @RequestParam("typeId") AccidentType type) {
+                         @RequestParam("typeId") AccidentType type,
+                         @RequestParam("rIds") Set<Rule> rules) {
+        accident.setRules(rules);
         accident.setType(type);
         accidentService.update(accident);
         return "redirect:/index";
     }
+
 }

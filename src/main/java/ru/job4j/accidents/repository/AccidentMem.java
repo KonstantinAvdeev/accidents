@@ -5,11 +5,13 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.model.Rule;
 
 
 @Repository
@@ -20,14 +22,15 @@ public class AccidentMem {
     public AccidentMem() {
         save(new Accident(0, "ДТП с пострадавшими", "ДТП с травмами средней тяжести, "
                 + "без жертв", "ул.Пушкина, д.5",
-                new AccidentType()));
+                new AccidentType(), Set.of(new Rule(0, "Rule1"))));
         save(new Accident(0, "Сбили пешехода", "ДТП с участием автомобиля и пешехода, "
                 + "водитель сбил пешехода в 15 метрах от пешеходного перехода",
-                "ул.Ленина, напротив д.11", new AccidentType()));
+                "ул.Ленина, напротив д.11", new AccidentType(),
+                Set.of(new Rule(0, "Rule2"))));
         save(new Accident(0, "Сбили велосипедиста", "ДТП с участием автомобиля и "
                 + "велосипедиста, велосипедист не спешился на пешеходном переходе, травмировал "
                 + "колено и локоть, требуется вызов скорой помощи", "ул.Ватутина, д.26",
-                new AccidentType()));
+                new AccidentType(), Set.of(new Rule(0, "Rule3"))));
     }
 
     public Accident save(Accident accident) {
@@ -47,7 +50,7 @@ public class AccidentMem {
     public boolean update(Accident accident) {
         return accidents.computeIfPresent(accident.getId(), (id, oldAccident) ->
                 new Accident(oldAccident.getId(), accident.getName(), accident.getText(),
-                        accident.getAddress(), accident.getType())) != null;
+                        accident.getAddress(), accident.getType(), accident.getRules())) != null;
     }
 
     public boolean delete(int id) {
