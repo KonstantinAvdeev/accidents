@@ -13,7 +13,10 @@ import java.util.Optional;
 public class AccidentService {
     private final AccidentMem accidentMem;
 
-    public Accident save(Accident accident) {
+    private final AccidentTypeService accidentTypeService;
+
+    public Accident save(Accident accident, int id) {
+        accident.setType(accidentTypeService.findById(id).get());
         return accidentMem.save(accident);
     }
 

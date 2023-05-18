@@ -25,10 +25,8 @@ public class AccidentController {
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident,
-                       @RequestParam("typeId") AccidentType type) {
-        accident.setType(type);
-        accidentService.save(accident);
+    public String save(@ModelAttribute Accident accident) {
+        accidentService.save(accident, accident.getType().getId());
         return "redirect:/index";
     }
 
