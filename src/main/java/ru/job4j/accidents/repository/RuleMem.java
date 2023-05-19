@@ -36,7 +36,7 @@ public class RuleMem {
     public Set<Rule> getSetRule(Set<Rule> rIds) {
         Set<Rule> rules = new HashSet<>();
         for (Rule rule : rIds) {
-            rules.add(findById(rule.getId()).get());
+            rules.add(rule);
         }
         return rules;
     }
