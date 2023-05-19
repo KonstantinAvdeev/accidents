@@ -26,7 +26,7 @@ public class RuleService {
         return ruleMem.findById(id);
     }
 
-    public Set<Rule> getSetRule(Set<Rule> rIds) {
+    public Set<Rule> getSetRule(Set<String> rIds) {
         return ruleMem.getSetRule(rIds);
     }
 

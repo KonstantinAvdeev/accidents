@@ -33,10 +33,10 @@ public class RuleMem {
         return Optional.ofNullable(ruleMap.get(id));
     }
 
-    public Set<Rule> getSetRule(Set<Rule> rIds) {
+    public Set<Rule> getSetRule(Set<String> rIds) {
         Set<Rule> rules = new HashSet<>();
-        for (Rule rule : rIds) {
-            rules.add(rule);
+        for (String id : rIds) {
+            rules.add(findById(Integer.parseInt(id)).get());
         }
         return rules;
     }

@@ -18,9 +18,9 @@ public class AccidentService {
     private final AccidentTypeService accidentTypeService;
     private final RuleService ruleService;
 
-    public Accident save(Accident accident) {
+    public Accident save(Accident accident, Set<String> rIds) {
         accident.setType(accidentTypeService.findById(accident.getType().getId()).get());
-        accident.setRules(ruleService.getSetRule(accident.getRules()));
+        accident.setRules(ruleService.getSetRule(rIds));
         return accidentMem.save(accident);
     }
 

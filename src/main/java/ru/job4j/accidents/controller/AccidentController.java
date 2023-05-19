@@ -30,8 +30,8 @@ public class AccidentController {
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident) {
-        accidentService.save(accident);
+    public String save(@ModelAttribute Accident accident, @RequestParam("rIds") Set<String> rules) {
+        accidentService.save(accident, rules);
         return "redirect:/index";
     }
 
@@ -52,8 +52,8 @@ public class AccidentController {
     @PostMapping("/update")
     public String update(@ModelAttribute Accident accident,
                          @RequestParam("typeId") AccidentType type,
-                         @RequestParam("rIds") Set<Rule> rules) {
-        accident.setRules(rules);
+                         @RequestParam("rIds") Set<String> rules) {
+        accident.setRules(ruleService.getSetRule(rules));
         accident.setType(type);
         accidentService.update(accident);
         return "redirect:/index";
