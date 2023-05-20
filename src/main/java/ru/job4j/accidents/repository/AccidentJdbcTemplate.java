@@ -60,11 +60,11 @@ public class AccidentJdbcTemplate implements AccidentRepository {
     @Override
     public Optional<Accident> findById(int accidentId) {
         return Optional.ofNullable(jdbc.queryForObject("select ac.id, ac.name, ac.text, "
-                        + "ac.address, atypes.name as typeName, " +
-                        "ar.name as rule_name from accidents ac " +
-                        "join accident_types atypes on ac.accident_type_id = atypes.id " +
-                        "join accidents_rules ar on ar.accident_id = ac.id " +
-                        "join rules r on ar.rule_id = r.id where ac.id = ?",
+                        + "ac.address, atypes.name as typeName, "
+                        + "ar.name as rule_name from accidents ac "
+                        + "join accident_types atypes on ac.accident_type_id = atypes.id "
+                        + "join accidents_rules ar on ar.accident_id = ac.id "
+                        + "join rules r on ar.rule_id = r.id where ac.id = ?",
                 accidentRowMapper, accidentId));
     }
 
