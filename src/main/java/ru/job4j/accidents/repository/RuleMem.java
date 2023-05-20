@@ -1,14 +1,12 @@
 package ru.job4j.accidents.repository;
 
-import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
-public class RuleMem {
+public class RuleMem implements RuleRepository {
 
     private final Map<Integer, Rule> ruleMap = new ConcurrentHashMap<>();
     private final AtomicInteger ruleId = new AtomicInteger();
@@ -25,14 +23,17 @@ public class RuleMem {
         return rule;
     }
 
+    @Override
     public Collection<Rule> getAll() {
         return ruleMap.values();
     }
 
+    @Override
     public Optional<Rule> findById(int id) {
         return Optional.ofNullable(ruleMap.get(id));
     }
 
+    @Override
     public Set<Rule> getSetRule(Set<String> rIds) {
         Set<Rule> rules = new HashSet<>();
         for (String id : rIds) {

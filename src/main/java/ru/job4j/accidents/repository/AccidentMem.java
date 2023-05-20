@@ -1,7 +1,5 @@
 package ru.job4j.accidents.repository;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -14,8 +12,7 @@ import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
 
 
-@Repository
-public class AccidentMem {
+public class AccidentMem implements AccidentRepository {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger accidentId = new AtomicInteger();
 
@@ -33,26 +30,31 @@ public class AccidentMem {
                 new AccidentType(), Set.of(new Rule(0, "Rule3"))));
     }
 
+    @Override
     public Accident save(Accident accident) {
         accident.setId(accidentId.incrementAndGet());
         accidents.put(accident.getId(), accident);
         return accident;
     }
 
+    @Override
     public Collection<Accident> getAll() {
         return accidents.values();
     }
 
+    @Override
     public Optional<Accident> findById(int id) {
         return Optional.ofNullable(accidents.get(id));
     }
 
+    @Override
     public boolean update(Accident accident) {
         return accidents.computeIfPresent(accident.getId(), (id, oldAccident) ->
                 new Accident(oldAccident.getId(), accident.getName(), accident.getText(),
                         accident.getAddress(), accident.getType(), accident.getRules())) != null;
     }
 
+    @Override
     public boolean delete(int id) {
         return accidents.remove(id) != null;
     }
