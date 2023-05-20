@@ -81,9 +81,8 @@ public class AccidentJdbcTemplate implements AccidentRepository {
             deleteAccidentsRules(accident.getId());
             saveAccidentsRules(accident);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -92,9 +91,8 @@ public class AccidentJdbcTemplate implements AccidentRepository {
         if (del > 0) {
             deleteAccidentsRules(accidentId);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     private void saveAccidentsRules(Accident accident) {
