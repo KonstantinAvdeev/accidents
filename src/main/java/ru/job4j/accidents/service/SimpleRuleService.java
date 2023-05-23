@@ -25,11 +25,7 @@ public class SimpleRuleService implements RuleService {
 
     @Override
     public Set<Rule> getSetRule(Set<String> rIds) {
-        List<Rule> list = new ArrayList<>();
-        for (String r : rIds) {
-            list.add(ruleRepositoryJPA.findById(Integer.parseInt(r)).get());
-        }
-        return new HashSet<>(list);
+        return ruleRepositoryJPA.findRulesByIdIn(rIds);
     }
 
 }
