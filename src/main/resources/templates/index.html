@@ -46,7 +46,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" th:text="${user}"></a>
+                    <a class="nav-link disabled" href="#" th:text="${user.username}"></a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -68,7 +68,6 @@
                     <th scope="col">Название нарушения</th>
                     <th scope="col">Описание</th>
                     <th scope="col">Адрес</th>
-                    <th scope="col">Пользователь, сообщивший о нарушении</th>
                     <th scope="col">Тип происшествия</th>
                     <th scope="col">Статьи</th>
                 </tr>
@@ -81,7 +80,6 @@
                     </td>
                     <td th:text="${accident.text}"/>
                     <td th:text="${accident.address}"/>
-                    <td th:text="${user.name}"/>
                     <td th:text="${accident.type.name}"/>
                     <td>
                         <ul id="rules">

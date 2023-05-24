@@ -24,7 +24,7 @@ public class AccidentController {
         model.addAttribute("rules", ruleService.getAll());
         model.addAttribute("types", accidentTypeService.getAll());
         model.addAttribute("user", "Иван Иванов");
-        return "createAccident";
+        return "accidents/createAccident";
     }
 
     @PostMapping("/saveAccident")
@@ -45,7 +45,7 @@ public class AccidentController {
         model.addAttribute("types", accidentTypeService.getAll());
         model.addAttribute("accident", optionalAccident.get());
         model.addAttribute("user", "Иван Иванов");
-        return "editAccident";
+        return "accidents/editAccident";
     }
 
     @PostMapping("/update")
