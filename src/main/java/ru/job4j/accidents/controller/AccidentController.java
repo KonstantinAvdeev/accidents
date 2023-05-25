@@ -1,6 +1,7 @@
 package ru.job4j.accidents.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,6 @@ import java.util.Set;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping(name = "/accidents")
 public class AccidentController {
     private final AccidentService accidentService;
     private final AccidentTypeService accidentTypeService;
@@ -23,18 +23,20 @@ public class AccidentController {
     public String viewCreateAccident(Model model) {
         model.addAttribute("rules", ruleService.getAll());
         model.addAttribute("types", accidentTypeService.getAll());
-        model.addAttribute("user", "Иван Иванов");
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "accidents/createAccident";
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, @RequestParam("rIds") Set<String> rules) {
-        accidentService.save(accident, rules);
+    public String save(@ModelAttribute Accident accident,
+                       @RequestParam("rIds") Set<String> rIds) {
+        accidentService.save(accident, rIds);
         return "redirect:/index";
     }
 
-    @GetMapping("/editAccident")
-    public String viewEditAccident(@RequestParam int id, Model model) {
+    @GetMapping("/accidents/{id}")
+    public String viewEditAccident(@PathVariable int id, Model model) {
         Optional<Accident> optionalAccident = accidentService.findById(id);
         if (optionalAccident.isEmpty()) {
             model.addAttribute("error", "Нарушение с указанным "
@@ -44,7 +46,8 @@ public class AccidentController {
         model.addAttribute("rules", ruleService.getAll());
         model.addAttribute("types", accidentTypeService.getAll());
         model.addAttribute("accident", optionalAccident.get());
-        model.addAttribute("user", "Иван Иванов");
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "accidents/editAccident";
     }
 

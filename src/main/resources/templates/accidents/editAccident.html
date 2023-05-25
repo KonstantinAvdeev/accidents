@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
@@ -16,43 +16,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <title>Accidents - проект "Автонарушители"</title>
+    <title>Автомобильные инциденты</title>
 </head>
-<body>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">СтопАвтоХам</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="@{/accidents/createAccident}">Сообщить о
-                            нарушении</a>
-                        <a class="dropdown-item" href="#">Узнать статус сообщения</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Задать вопрос</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" th:text="${user.username}"></a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search"
-                       aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+        <a class="navbar-brand" th:href="@{/}">СтопАвтоХам</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/">Главная</a>
+                <a class="nav-item nav-link" th:href="@{/createAccident}">Добавить
+                    происшествие</a>
+            </div>
+        </div>
+        <div class="d-flex" th:if="${user.username != null}">
+            <a class="nav-link text-secondary me-3" href="#" th:text="${user.username}"></a>
+            <a class="nav-link text-secondary" th:href="@{/logout}">Выйти</a>
         </div>
     </nav>
     <div class="row pt-3">
@@ -61,28 +39,28 @@
                 Редактировать нарушение
             </div>
             <div class="card-body">
-                <form th:action="@{/accidents/update}" method="POST" th:object="${accident}"
+                <form th:action="@{/update}" method="POST" th:object="${accident}"
                       enctype="multipart/form-data">
-                    <input type="hidden" name="id" th:field="*{accident.id}">
+                    <input type="hidden" name="id" th:field="*{id}">
                     <div class="row mb-3">
                         <div class="col-9">
                             <div class="mb-3">
                                 <label for="name" class="form-label"><b>Редактировать название
                                     нарушения</b></label>
                                 <textarea class="form-control" id="name" name="name" rows="1"
-                                          th:field="*{accident.name}"></textarea>
+                                          th:field="*{name}"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="text" class="form-label"><b>Редактировать описание
                                     нарушения</b></label>
                                 <textarea class="form-control" id="text" name="text" rows="10"
-                                          th:field="*{accident.text}"></textarea>
+                                          th:field="*{text}"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label"><b>Редактировать адрес
                                     нарушения</b></label>
                                 <textarea class="form-control" id="address" name="address" rows="10"
-                                          th:field="*{accident.address}"></textarea>
+                                          th:field="*{address}"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="type">Тип</label>
@@ -101,6 +79,7 @@
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Обновить</button>
+                            <a class="btn mt-3 btn-danger" href="/" role="button">Отмена</a>
                         </div>
                     </div>
                 </form>

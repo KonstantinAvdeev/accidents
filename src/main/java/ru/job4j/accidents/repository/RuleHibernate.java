@@ -15,7 +15,7 @@ public class RuleHibernate implements RuleRepository {
     @Override
     public Set<Rule> getSetRule(Set<String> rIds) {
         String r = String.join(", ", rIds);
-        List<Rule> list = crudRepository.query("from Rule where id in :Rr", Rule.class,
+        List<Rule> list = crudRepository.query("from Rule where id in (:Rr)", Rule.class,
                 Map.of("Rr", r));
         return new HashSet<>(list);
     }

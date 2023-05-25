@@ -6,6 +6,7 @@ import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.RuleRepositoryJPA;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -25,7 +26,8 @@ public class SimpleRuleService implements RuleService {
 
     @Override
     public Set<Rule> getSetRule(Set<String> rIds) {
-        return ruleRepositoryJPA.findRulesByIdIn(rIds);
+        Set<Integer> integerSet = rIds.stream().map(Integer::parseInt).collect(Collectors.toSet());
+        return ruleRepositoryJPA.findRulesByIdIn(integerSet);
     }
 
 }

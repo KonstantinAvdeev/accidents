@@ -9,5 +9,5 @@ import java.util.Set;
 public interface RuleRepositoryJPA extends CrudRepository<Rule, Integer> {
     List<Rule> findAll();
 
-    Set<Rule> findRulesByIdIn(Set<String> rIds);
+    Set<Rule> findRulesByIdIn(Set<Integer> rIds);
 }
