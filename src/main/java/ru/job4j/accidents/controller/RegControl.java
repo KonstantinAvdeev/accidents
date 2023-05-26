@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accidents.model.User;
 import ru.job4j.accidents.repository.AuthorityRepository;
 import ru.job4j.accidents.repository.UserRepository;
+import ru.job4j.accidents.service.UserService;
 
 @Controller
 public class RegControl {
 
     private final PasswordEncoder encoder;
-    private final UserRepository users;
+    private final UserService users;
     private final AuthorityRepository authorities;
 
-    public RegControl(PasswordEncoder encoder, UserRepository users, AuthorityRepository authorities) {
+    public RegControl(PasswordEncoder encoder, UserService users, AuthorityRepository authorities) {
         this.encoder = encoder;
         this.users = users;
         this.authorities = authorities;
@@ -28,13 +29,11 @@ public class RegControl {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorities.findByAuthority("ROLE_USER"));
-        try {
-            users.save(user);
-        } catch (Exception e) {
-            model.addAttribute("error", "Такой пользователь уже существует");
-            return "reg";
+        if (users.save(user)) {
+            return "redirect:/login";
         }
-        return "redirect:/login";
+        model.addAttribute("error", "Такой пользователь уже существует");
+        return "reg";
     }
 
     @GetMapping("/reg")
