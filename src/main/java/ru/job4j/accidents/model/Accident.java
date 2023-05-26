@@ -26,11 +26,12 @@ public class Accident {
     @ManyToOne
     @JoinColumn(name = "accident_type_id")
     private AccidentType type;
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "accidents_rules",
             joinColumns = {@JoinColumn(name = "accident_id")},
             inverseJoinColumns = {@JoinColumn(name = "rule_id")}
     )
     private Set<Rule> rules = new HashSet<>();
+
 }

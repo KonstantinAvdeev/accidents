@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accidents.model.User;
 import ru.job4j.accidents.repository.AuthorityRepository;
-import ru.job4j.accidents.repository.UserRepository;
 import ru.job4j.accidents.service.UserService;
 
 @Controller
