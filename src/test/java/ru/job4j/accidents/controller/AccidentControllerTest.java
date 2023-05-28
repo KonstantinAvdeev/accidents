@@ -14,8 +14,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.accidents.Main;
 
+import javax.transaction.Transactional;
+
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
+@Transactional
 class AccidentControllerTest {
     @Autowired
     private MockMvc mockMvc;
