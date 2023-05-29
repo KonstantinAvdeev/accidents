@@ -10,13 +10,10 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.accidents.repository.UserRepository;
-
 
 @AllArgsConstructor
 @Controller
 public class LoginController {
-    private final UserRepository users;
 
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,
