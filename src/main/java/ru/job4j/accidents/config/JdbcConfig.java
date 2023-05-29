@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("classpath:db.properties")
-@TestPropertySource("classpath:connection.properties")
 @EnableTransactionManagement
 public class JdbcConfig {
 
